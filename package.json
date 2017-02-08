@@ -3,6 +3,23 @@
   "version": "1.0.3",
   "description": "Koa2 middleware for wrap Mysql2",
   "main": "dist/index.js",
+  "keywords": [
+    "mysql2",
+    "async",
+    "koa2-mysql2",
+    "koa2-mysql",
+    "koa2-mysql2-wrapper",
+    "mysql2-wrapper",
+    "mysql-wrapper",
+    "koa2-middleware",
+    "mysql2-middleware"
+    "mysql-async",
+    "wrapper"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JamesnaW/koa2-mysql-wrapper.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

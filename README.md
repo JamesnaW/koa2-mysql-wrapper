@@ -10,8 +10,8 @@ npm install --save koa2-mysql-wrapper
 ```
 
 #mysql(connectionString, [options])
-* `connectionString`: Mysql2 connection string, eg. `{host:'localhost', user: 'root', password: 'test', database: 'test'}`
-* `options`: **Object**, You can overwrite method to call this wrapper method, default you will call like `ctx.myPool.query`, overwrite by pass { method: 'mysql' }, so you can call `ctx.mysql.query()`
+* `connectionString`: Mysql2 connection string, e.g. `{host:'localhost', user: 'root', password: 'test', database: 'test'}`
+* `options`: **Object**, You can overwrite method to call this wrapper method, default you will call like `ctx.myPool.query`, overwrite by pass `{ method: 'mysql' }`, so you can call `ctx.mysql.query()`
 
 ##Usage
 ```
@@ -27,6 +27,10 @@ app.use(async (ctx, next) => {
   await next()
 })
 ```
+
+##Todo List
+* Support array value for 1 `?`, e.g. ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], 0])
+* Convert `True and False` to `1,0`, , e.g. ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], false])
 
 
 ## License
