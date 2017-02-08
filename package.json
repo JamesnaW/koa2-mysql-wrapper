@@ -12,7 +12,7 @@
     "mysql2-wrapper",
     "mysql-wrapper",
     "koa2-middleware",
-    "mysql2-middleware"
+    "mysql2-middleware",
     "mysql-async",
     "wrapper"
   ],
