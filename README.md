@@ -28,9 +28,9 @@ app.use(async (ctx, next) => {
 })
 ```
 
-##Todo List
-* Support array value for 1 `?`, e.g. ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], 0])
-* Convert `True and False` to `1,0`, , e.g. ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], false])
+###Supported
+* `Array values`: ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], 0]), notice that its support only 1 nested array.
+* `Boolean values: Convert `True and False` to `1 and 0`, e.g. ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], false]).
 
 
 ## License

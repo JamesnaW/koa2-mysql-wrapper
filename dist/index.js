@@ -7,6 +7,7 @@ function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var mysql = require('mysql2/promise');
+var optimize = require('./prefix');
 
 var mysqlPool = function mysqlPool(conn) {
   var pool = mysql.createPool(conn);
@@ -25,36 +26,42 @@ var execute = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            _context.next = 3;
+
+            args = args.map(function (q) {
+              if (typeof q === 'boolean') q = Number(q);
+
+              return q;
+            });
+            _context.next = 4;
             return db.client.execute(query, args);
 
-          case 3:
+          case 4:
             _ref2 = _context.sent;
             _ref3 = _slicedToArray(_ref2, 2);
             rows = _ref3[0];
             fields = _ref3[1];
 
             if (!(options && options.fields)) {
-              _context.next = 9;
+              _context.next = 10;
               break;
             }
 
             return _context.abrupt('return', [rows, fields]);
 
-          case 9:
+          case 10:
             return _context.abrupt('return', rows);
 
-          case 12:
-            _context.prev = 12;
+          case 13:
+            _context.prev = 13;
             _context.t0 = _context['catch'](0);
             return _context.abrupt('return', _context.t0);
 
-          case 15:
+          case 16:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, this, [[0, 12]]);
+    }, _callee, this, [[0, 13]]);
   }));
 
   return function execute(_x, _x2, _x3, _x4) {
@@ -128,11 +135,16 @@ module.exports = function (conn, options) {
           switch (_context3.prev = _context3.next) {
             case 0:
               db = mysqlPool(conn);
+              _context3.prev = 1;
 
               ctx[options ? options.method || 'myPool' : 'myPool'] = function () {
                 return {
                   query: function query(_query, args, options) {
-                    return execute(_query, args, db, options);
+                    var _optimize = optimize(_query, args),
+                        newQuery = _optimize.newQuery,
+                        newArgs = _optimize.newArgs;
+
+                    return execute(newQuery, newArgs, db, options);
                   },
                   async: function async() {
                     for (var _len2 = arguments.length, arr = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
@@ -143,18 +155,27 @@ module.exports = function (conn, options) {
                   }
                 };
               };
-              _context3.next = 4;
-              return next();
-
-            case 4:
-              db.pool.end();
+              _context3.next = 8;
+              break;
 
             case 5:
+              _context3.prev = 5;
+              _context3.t0 = _context3['catch'](1);
+              return _context3.abrupt('return', _context3.t0);
+
+            case 8:
+              _context3.next = 10;
+              return next();
+
+            case 10:
+              db.pool.end();
+
+            case 11:
             case 'end':
               return _context3.stop();
           }
         }
-      }, _callee3, this);
+      }, _callee3, this, [[1, 5]]);
     }));
 
     return function (_x6, _x7) {
