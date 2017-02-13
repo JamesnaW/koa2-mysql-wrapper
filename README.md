@@ -1,4 +1,4 @@
-#Koa2-mysql
+#Koa2-mysql-wrapper
 
 Koa2 middleware for wrap Mysql2
 
