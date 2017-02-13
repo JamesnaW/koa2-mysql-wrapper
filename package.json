@@ -1,6 +1,6 @@
 {
   "name": "koa2-mysql-wrapper",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Koa2 middleware for wrap Mysql2",
   "main": "dist/index.js",
   "keywords": [
