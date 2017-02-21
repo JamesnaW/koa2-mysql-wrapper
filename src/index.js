@@ -12,12 +12,14 @@ let mysqlPool = function(conn) {
 
 let execute = async function(query, args, db, options){
   try{
-    args = args.map(q=>{
-      if(typeof q === 'boolean')
-        q=Number(q)
+    if(typeof args === 'object'){
+      args = args.map(q=>{
+        if(typeof q === 'boolean')
+          q=Number(q)
 
-      return q
-    })
+        return q
+      })
+    }
     let [rows, fields] = await db.client.execute(query, args);
     if(options && options.fields)
       return [rows, fields];
@@ -29,9 +31,12 @@ let execute = async function(query, args, db, options){
 }
 let executeAsync = async function(db, ...arr){
   try{
-    let query = arr.map(q=>{
-      return db.client.execute(q[0], q[1])
-    })
+    let query = []
+    if(typeof args === 'object'){
+      query = arr.map(q=>{
+        return db.client.execute(q[0], q[1])
+      })
+    }
     let [...rows] = await Promise.all(query);
     let ret = []
     for(let i=0;i<rows.length;i++){
