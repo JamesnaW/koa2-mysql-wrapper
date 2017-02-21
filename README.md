@@ -33,6 +33,9 @@ app.use(async (ctx, next) => {
 * `Boolean values: Convert `True and False` to `1 and 0`, e.g. ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], false]).
 
 
+
+Thanks to supported me, If you find any issue or need any special modules please report me to improve and maintenance for better module.
+
 ## License
 
 MIT
