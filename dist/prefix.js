@@ -36,7 +36,7 @@ module.exports = function optimize(query, args) {
 
     return a.concat(b);
   });
-  if (newArgs !== 'object') newArgs = [newArgs];
+  if ((typeof newArgs === 'undefined' ? 'undefined' : _typeof(newArgs)) !== 'object') newArgs = [newArgs];
 
   return { newQuery: newQuery, newArgs: newArgs };
 };
