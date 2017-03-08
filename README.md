@@ -4,9 +4,15 @@ Koa2 middleware for wrap Mysql2
 
 This middleware is just wrap Mysql2 project into koa context
 
+Koa2-mysql-wrapper requires node v7.6.0 or higher for ES2015 and async function support.
+
 # Install Koa2-mysql-wrapper
 ```
 npm install --save koa2-mysql-wrapper
+```
+# Install Koa2-mysql-wrapper for earlier node v7.6.0 supported
+```
+npm install --save koa2-mysql-wrapper@1
 ```
 
 #mysql(connectionString, [options])
