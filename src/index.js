@@ -12,14 +12,6 @@ let mysqlPool = function(conn) {
 
 let execute = async function(query, args, db, options){
   try{
-    if(typeof args === 'object'){
-      args = args.map(q=>{
-        if(typeof q === 'boolean')
-          q=Number(q)
-
-        return q
-      })
-    }
     let [rows, fields] = await db.client.execute(query, args);
     if(options && options.fields)
       return [rows, fields];
@@ -54,9 +46,9 @@ module.exports = function(conn, options){
     try{
       ctx[options ? options.method || 'myPool' : 'myPool'] = ()=>{
         return {
-          query: function(query,args,options){
+          query: function(query,args=[],queryOptions={fields:false}){
             let {newQuery, newArgs} = optimize(query, args)
-            return execute(newQuery, newArgs, db, options);
+            return execute(newQuery, newArgs, db, queryOptions);
           },
           async: function(...arr){
             return executeAsync(db, ...arr);

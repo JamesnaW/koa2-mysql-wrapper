@@ -13,6 +13,11 @@ npm install --save koa2-mysql-wrapper
 * `connectionString`: Mysql2 connection string, e.g. `{host:'localhost', user: 'root', password: 'test', database: 'test'}`
 * `options`: **Object**, You can overwrite method to call this wrapper method, default you will call like `ctx.myPool.query`, overwrite by pass `{ method: 'mysql' }`, so you can call `ctx.mysql.query()`
 
+##query(queryString, argument, options)
+* `queryString`: select * from user.
+* `argument`: Default = [], replace on ? prefix, select * from user where active=?, [true]
+* `options`: **Object**, if you need column name then you can pass option { field: true }, default { field: false }
+
 ##Usage
 ```
 import Koa from 'koa'
@@ -30,7 +35,6 @@ app.use(async (ctx, next) => {
 
 ###Supported
 * `Array values`: ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], 0]), notice that its support only 1 nested array.
-* `Boolean values: Convert `True and False` to `1 and 0`, e.g. ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], false]).
 
 
 

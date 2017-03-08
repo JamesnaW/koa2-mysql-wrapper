@@ -1,8 +1,8 @@
 'use strict';
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 
@@ -28,44 +28,36 @@ var execute = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-
-            if ((typeof args === 'undefined' ? 'undefined' : _typeof(args)) === 'object') {
-              args = args.map(function (q) {
-                if (typeof q === 'boolean') q = Number(q);
-
-                return q;
-              });
-            }
-            _context.next = 4;
+            _context.next = 3;
             return db.client.execute(query, args);
 
-          case 4:
+          case 3:
             _ref2 = _context.sent;
             _ref3 = _slicedToArray(_ref2, 2);
             rows = _ref3[0];
             fields = _ref3[1];
 
             if (!(options && options.fields)) {
-              _context.next = 10;
+              _context.next = 9;
               break;
             }
 
             return _context.abrupt('return', [rows, fields]);
 
-          case 10:
+          case 9:
             return _context.abrupt('return', rows);
 
-          case 13:
-            _context.prev = 13;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context['catch'](0);
             return _context.abrupt('return', _context.t0);
 
-          case 16:
+          case 15:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, this, [[0, 13]]);
+    }, _callee, this, [[0, 12]]);
   }));
 
   return function execute(_x, _x2, _x3, _x4) {
@@ -146,12 +138,15 @@ module.exports = function (conn, options) {
 
               ctx[options ? options.method || 'myPool' : 'myPool'] = function () {
                 return {
-                  query: function query(_query, args, options) {
+                  query: function query(_query) {
+                    var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                    var queryOptions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { fields: false };
+
                     var _optimize = optimize(_query, args),
                         newQuery = _optimize.newQuery,
                         newArgs = _optimize.newArgs;
 
-                    return execute(newQuery, newArgs, db, options);
+                    return execute(newQuery, newArgs, db, queryOptions);
                   },
                   async: function async() {
                     for (var _len2 = arguments.length, arr = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
