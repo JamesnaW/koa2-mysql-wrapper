@@ -15,8 +15,8 @@ npm install --save koa2-mysql-wrapper
 
 ##query(queryString, argument, options)
 * `queryString`: select * from user.
-* `argument`: Default = [], replace on ? prefix, select * from user where active=?, [true]
-* `options`: **Object**, if you need column name then you can pass option { field: true }, default { field: false }
+* `argument`: Default = [], replace value on ? prefix, select * from user where active=?, [true]
+* `options`: **Object**, if you need column name then you can pass option { field: true }. Default { field: false }
 
 ##Usage
 ```
