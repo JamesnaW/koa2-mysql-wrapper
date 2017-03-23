@@ -17,7 +17,7 @@ npm install --save koa2-mysql-wrapper@1
 
 #mysql(connectionString, [options])
 * `connectionString`: Mysql2 connection string, e.g. `{host:'localhost', user: 'root', password: 'test', database: 'test'}`
-* `options`: **Object**, You can overwrite method to call this wrapper method, default you will call like `ctx.myPool.query`, overwrite by pass `{ method: 'mysql' }`, so you can call `ctx.mysql.query()`
+* `options`: **Object**, You can overwrite method to call this wrapper method, default you will call like `ctx.myPool().query`, overwrite by pass `{ method: 'mysql' }`, so you can call `ctx.mysql.query()`
 
 ##query(queryString, argument, options)
 * `queryString`: select * from user.
@@ -34,13 +34,13 @@ const app = new Koa()
 app.use(mysql({host:'localhost', user: 'root', password: 'test', database: 'test'}))
 
 app.use(async (ctx, next) => {
-  let query = await ctx.myPool.query('SELECT * FROM `table` WHERE `name` = ? AND `dead` = ?', ['James', 0])
+  let query = await ctx.myPool().query('SELECT * FROM `table` WHERE `name` = ? AND `dead` = ?', ['James', 0])
   await next()
 })
 ```
 
 ###Supported
-* `Array values`: ctx.myPool.query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], 0]), notice that its support only 1 nested array.
+* `Array values`: ctx.myPool().query('SELECT * FROM `table` WHERE `name` in (?) AND `dead` = ?', [['James', 'Collyer'], 0]), notice that its support only 1 nested array.
 
 
 
