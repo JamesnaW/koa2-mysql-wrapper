@@ -59,7 +59,12 @@ module.exports = function(conn, options){
       return err;
     }
 
-    await next();
-    db.pool.end();
+		try {
+			await next();
+			db.pool.end();
+		}catch(err){
+			db.pool.end();
+			throw err;
+		}
   }
 }
